@@ -23,13 +23,13 @@ import com.dto.Ville;
 
 @RestController
 public class VilleController {
-	private HashMap<String, Object> listeVilles;
+	private HashMap<String, Object> listeVilles = new HashMap<String, Object>();
 	private VilleDao villeDao;
 	private Ville ville;
 	
 	// Fonction pour récupérer le contenu de la BDD
 	@RequestMapping(value="/ville", method=RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	public ArrayList<Ville> get(@RequestParam(required  = false, value="Code_commune_INSEE") String codeCommune, @RequestParam(required  = false, value="Nom_commune") String nomCommune,
+	public HashMap<String, Object> get(@RequestParam(required  = false, value="Code_commune_INSEE") String codeCommune, @RequestParam(required  = false, value="Nom_commune") String nomCommune,
 			@RequestParam(required  = false, value="Code_postal") String codePostal, @RequestParam(required  = false, value="Libelle_acheminement") String libelle,
 			@RequestParam(required  = false, value="Ligne_5") String ligne5, @RequestParam(required  = false, value="Latitude") String latitude, 
 			@RequestParam(required  = false, value="Longitude") String longitude) {
@@ -38,11 +38,13 @@ public class VilleController {
 		if(codeCommune != null || nomCommune != null || codePostal != null || libelle != null || 
 				ligne5 != null || latitude != null || longitude != null) {
 			this.villeDao = DaoFactory.getInstance().getVilleDao();
-			return villeDao.getVilleFiltre(codeCommune, nomCommune, codePostal,libelle, ligne5, latitude, longitude);
+			listeVilles.put("ville", villeDao.getVilleFiltre(codeCommune, nomCommune, codePostal,libelle, ligne5, latitude, longitude));
+			return listeVilles;
 		}
 		else {
 			this.villeDao = DaoFactory.getInstance().getVilleDao();
-			return villeDao.getVille();
+			listeVilles.put("ville", villeDao.getVille());
+			return listeVilles;
 		}
 	}
 	

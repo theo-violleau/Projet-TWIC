@@ -76,6 +76,7 @@ public class VilleDaoImpl implements VilleDao {
 		try {
 			Connection connexion = daoFactory.getConnection();
 			String statement ="UPDATE ville_france SET ";
+//			TODO : Rajouter codeCommune
 			if(nomCommune != null) {
 				statement+= "Nom_commune = '"+nomCommune+"',";
 			}
