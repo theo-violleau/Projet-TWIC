@@ -77,7 +77,7 @@ public class VilleController {
 	}
 	
 	// fonction pour modifier un element dans la BDD
-		@RequestMapping(value="/ville", method=RequestMethod.PUT,consumes = "application/json")
+		@RequestMapping(value="/ville", method=RequestMethod.PUT)
 		public Map<String, Object>put(@RequestParam(required  = true, value="Code_commune_INSEE") String codeCommune, @RequestParam(required  = false, value="Nom_commune") String nomCommune,
 				@RequestParam(required  = false, value="Code_postal") String codePostal, @RequestParam(required  = false, value="Libelle_acheminement") String libelle,
 				@RequestParam(required  = false, value="Ligne_5") String ligne5, @RequestParam(required  = false, value="Latitude") String latitude, 
