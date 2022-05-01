@@ -78,12 +78,18 @@ public class VilleController {
 	
 	// fonction pour modifier un element dans la BDD
 		@RequestMapping(value="/ville", method=RequestMethod.PUT,consumes = "application/json")
-		public void put(@RequestParam(required  = true, value="Code_commune_INSEE") String codeCommune, @RequestParam(required  = false, value="Nom_commune") String nomCommune,
+		public Map<String, Object>put(@RequestParam(required  = true, value="Code_commune_INSEE") String codeCommune, @RequestParam(required  = false, value="Nom_commune") String nomCommune,
 				@RequestParam(required  = false, value="Code_postal") String codePostal, @RequestParam(required  = false, value="Libelle_acheminement") String libelle,
 				@RequestParam(required  = false, value="Ligne_5") String ligne5, @RequestParam(required  = false, value="Latitude") String latitude, 
 				@RequestParam(required  = false, value="Longitude") String longitude) {
+			HashMap<String, Object> response = new HashMap<String, Object>();
 			System.out.println("put");
-			DaoFactory.getInstance().getVilleDao().modifVille(codeCommune, nomCommune, codePostal,libelle, ligne5, latitude, longitude);		
+			DaoFactory.getInstance().getVilleDao().modifVille(codeCommune, nomCommune, codePostal,libelle, ligne5, latitude, longitude);
+			response.put("status", "200");
+			response.put("message",
+					"The town identified with the INSEE code " + codeCommune + " was successfully updated.");
+
+			return response;
 		}
 		
 	// fonction pour supprimer un element dans la BDD
